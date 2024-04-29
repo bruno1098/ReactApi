@@ -36,7 +36,7 @@ const App = () => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer ${ENV.REACT_APP_CHATGPT_KEY}`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
@@ -55,23 +55,23 @@ const App = () => {
       if (index < response.length) {
         setMessages(currentMessages => {
           const newMessages = [...currentMessages];
-          const lastMessage = newMessages.pop(); 
+          const lastMessage = newMessages.pop();
           lastMessage.content = response.substring(0, index + 1);
-          newMessages.push(lastMessage); 
+          newMessages.push(lastMessage);
           return newMessages;
         });
         index++;
       } else {
         clearInterval(intervalId);
-        setLoading(false); 
+        setLoading(false);
       }
-    }, 1); 
+    }, 1);
   };
 
   const handleSubmit = async () => {
     const promptText = inputText.trim();
     if (promptText) {
-      setLoading(true); 
+      setLoading(true);
       const data = {
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: promptText }],
@@ -137,8 +137,7 @@ const App = () => {
                     }}
                   >
                     {message.content}
-                  </Text
->
+                  </Text>
                 </Box>
               </HStack>
             ))}
