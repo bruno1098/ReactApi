@@ -3,8 +3,6 @@ import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { extendTheme, NativeBaseProvider, Box, Text, Input, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import axios from "axios";
-import ENV from './env';
-
 const getTheme = (mode) => extendTheme({
   config: {
     useSystemColorMode: false,
