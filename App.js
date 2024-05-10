@@ -6,6 +6,7 @@ import Chatbot from './Components/Chatbot';
 import LoginScreen from './Components/LoginScreen';
 import RegisterScreen from './Components/RegisterScreen';
 import Perfil from './Components/Perfil';
+import Inicial from './Components/Inicial';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,8 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Inicial">
+          <Stack.Screen name="Inicial" component={Inicial}/>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Chatbot" component={Chatbot} />
