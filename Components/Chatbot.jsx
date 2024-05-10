@@ -3,6 +3,15 @@ import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { extendTheme, NativeBaseProvider, Box, Text, Input, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import axios from "axios";
+import Perfil from "./Perfil";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+
+const Stack = createNativeStackNavigator();
+
+
+
+
 const getTheme = (mode) => extendTheme({
   config: {
     useSystemColorMode: false,
@@ -24,17 +33,18 @@ const getTheme = (mode) => extendTheme({
   }
 });
 
-const App = () => {
+const Chatbot = ({navigation, route}) => {
   const [themeMode, setThemeMode] = useState('dark');
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
   const messageEndRef = useRef(null);
+  const userEmail = route.params?.email;
 
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
@@ -102,6 +112,15 @@ const App = () => {
             icon={<Icon as={MaterialIcons} name={themeMode === 'dark' ? "mode-night" : "sunny"} size="sm" mt={5} color={themeMode === 'dark' ? "blueGray.50" : "blueGray.900"} />}
             onPress={toggleTheme}
           />
+        <IconButton
+      icon={<Icon as={MaterialIcons} name="account-circle" size="xl" />}
+      onPress={() => navigation.navigate('Perfil', { email: userEmail })}
+      _icon={{
+        color: "blueGray.50",
+        size: "lg"
+      }}
+    />
+          
         </HStack>
         <ScrollView
           ref={messageEndRef}
@@ -175,4 +194,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Chatbot;
