@@ -44,11 +44,11 @@ const Chatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer CHAVE API`,
       'Content-Type': 'application/json',
     },
   });
-
+//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
   useEffect(() => {
     messageEndRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
