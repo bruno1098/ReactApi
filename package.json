@@ -7,9 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "expo build:web",
-    "build-native": "expo build:android && expo build:ios"
-  },
+    "build": "npx expo export:web"
+},
+
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
     "@react-navigation/native": "^6.1.17",
