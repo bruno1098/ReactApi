@@ -50,7 +50,7 @@ const Chatbot = ({navigation, route}) => {
       'Content-Type': 'application/json',
     },
   });
-//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
+//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
   useEffect(() => {
     messageEndRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
@@ -113,15 +113,17 @@ const Chatbot = ({navigation, route}) => {
            <IconButton
             icon={<Image source={themeMode === 'dark' ? sunIcon : moonIcon} style={{ width: 24, height: 24 }} alt="Theme Toggle" />}
             onPress={toggleTheme}
+            key={themeMode}
           />
         <IconButton
-      icon={<Icon as={MaterialIcons} name="account-circle" size="xl" />}
-      onPress={() => navigation.navigate('Perfil', { email: userEmail })}
-      _icon={{
-        color: "blueGray.50",
-        size: "lg"
-      }}
-    />
+                icon={<Icon as={MaterialIcons} name="account-circle" size="xl" />}
+                onPress={() => navigation.navigate('Perfil', { email: userEmail })}
+                _icon={{
+                    color: themeMode === 'dark' ? 'blueGray.50' : 'blueGray.900',  // Altere esta linha
+                    size: "lg"
+                }}
+            />
+
           
         </HStack>
         <ScrollView

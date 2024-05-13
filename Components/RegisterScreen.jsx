@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {  NativeBaseProvider, Box, VStack, Input, Button, Image, Center, Select, CheckIcon, useToast } from 'native-base';
+import {  NativeBaseProvider, Box, VStack, Input, IconButton, Button, Image, Center, Select, CheckIcon, useToast } from 'native-base';
 import { useTheme } from './ThemeContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const RegisterScreen = ({ navigation }) => {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -11,6 +12,11 @@ const RegisterScreen = ({ navigation }) => {
   const [documentType, setDocumentType] = useState('CPF');
   const [registerStatus, setRegisterStatus] = useState('default');
   const toast = useToast();
+  const moonIcon = require('../assets/moon.png');
+const sunIcon = require('../assets/sun.png');
+const avatarIcon = require('../assets/avatar.png');
+
+
 
   const validateEmail = (email) => {
     return email.match(/\S+@\S+\.\S+/);
@@ -82,6 +88,23 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <NativeBaseProvider>
       <Box flex={1} bg={theme === 'dark' ? '#333' : '#fff'} p="5" alignItems="center" justifyContent="center">
+      <IconButton
+                    icon={<Image source={theme === 'dark' ? sunIcon : moonIcon} alt="Theme Toggle Icon" style={{ width: 24, height: 24 }} />}
+                    onPress={toggleTheme}
+                    key={theme}
+                    position="absolute"
+                    top="4"
+                    right="3"
+                    zIndex="1"
+                />
+                <IconButton
+                    icon={<MaterialIcons name="arrow-back" size={24} color={theme === 'dark' ? 'white' : 'black'} />}
+                    onPress={() => navigation.goBack()}
+                    position="absolute"
+                    top="4"
+                    left="3"
+                    zIndex="1"
+                />
         <Box w="80%" maxW="300px" bg={theme === 'dark' ? 'blueGray.700' : 'gray.400'}
              p="4" borderRadius="lg" shadow="3">
           <Center mb="4">

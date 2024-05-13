@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { NativeBaseProvider, Box, VStack, Input, Button, Center, Text, useToast } from 'native-base';
+import { NativeBaseProvider, Box, VStack, Input, Button, Center, Text, IconButton, useToast } from 'native-base';
 import { useTheme } from './ThemeContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
     const { theme } = useTheme();
@@ -70,6 +71,14 @@ const ForgotPasswordScreen = ({ navigation }) => {
     return (
         <NativeBaseProvider>
             <Box flex={1} bg={theme === 'dark' ? '#333' : '#fff'} p="5" alignItems="center" justifyContent="center">
+            <IconButton
+                    icon={<MaterialIcons name="arrow-back" size={24} color={theme === 'dark' ? 'white' : 'black'} />}
+                    onPress={() => navigation.goBack()}
+                    position="absolute"
+                    top="4"
+                    left="3"
+                    zIndex="1"
+                />
                 <Box w="80%" maxW="300px" bg={theme === 'dark' ? 'blueGray.700' : 'gray.400'}
                     p="4" borderRadius="lg" shadow="3">
                     <Center>
