@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { extendTheme, NativeBaseProvider, Box, Text, Input, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
+import { extendTheme, Image, NativeBaseProvider, Box, Text, Input, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import axios from "axios";
-import Perfil from "./Perfil";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+const moonIcon = require('../assets/moon.png');
+const sunIcon = require('../assets/sun.png');
 
 const Stack = createNativeStackNavigator();
 
@@ -44,11 +46,11 @@ const Chatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer CHAVE API`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
-//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
+//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
   useEffect(() => {
     messageEndRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
@@ -108,8 +110,8 @@ const Chatbot = ({navigation, route}) => {
     <NativeBaseProvider theme={getTheme(themeMode)}>
       <Box flex={1} bg={themeMode === 'dark' ? "blueGray.900" : "blueGray.50"} p="4">
         <HStack justifyContent="flex-end" mb={4}>
-          <IconButton
-            icon={<Icon as={MaterialIcons} name={themeMode === 'dark' ? "mode-night" : "sunny"} size="sm" mt={5} color={themeMode === 'dark' ? "blueGray.50" : "blueGray.900"} />}
+           <IconButton
+            icon={<Image source={themeMode === 'dark' ? sunIcon : moonIcon} style={{ width: 24, height: 24 }} alt="Theme Toggle" />}
             onPress={toggleTheme}
           />
         <IconButton
@@ -160,7 +162,7 @@ const Chatbot = ({navigation, route}) => {
             ))}
             {loading && (
               <HStack justifyContent="center">
-                <Spinner color={themeMode === 'dark' ? "blueGray.50" : "blueGray.900"} />
+                <Spinner color={themeMode === 'dark' ? "blueGray.50" : "blueGray.900"} size={"lg"} />
               </HStack>
             )}
           </VStack>

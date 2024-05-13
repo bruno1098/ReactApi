@@ -7,14 +7,19 @@ import LoginScreen from './Components/LoginScreen';
 import RegisterScreen from './Components/RegisterScreen';
 import Perfil from './Components/Perfil';
 import Inicial from './Components/Inicial';
+import { ThemeProvider } from './Components/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
+    <ThemeProvider>
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Inicial">
+        <Stack.Navigator initialRouteName="Inicial"
+           screenOptions={{
+            headerShown: false}}
+        >
           <Stack.Screen name="Inicial" component={Inicial}/>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
@@ -23,6 +28,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
+    </ThemeProvider>
   );
 };
 
