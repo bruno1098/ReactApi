@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { extendTheme, Image, NativeBaseProvider, Box, Text, Input, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
+import { extendTheme, Image, NativeBaseProvider, Box, Text, Input,Center, Button, IconButton, Icon, VStack, HStack, Avatar, Spinner } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import axios from "axios";
 
@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const moonIcon = require('../assets/moon.png');
 const sunIcon = require('../assets/sun.png');
+const robotIcon = require ('../assets/expi.png')
+const robotIconDark = require ('../assets/expiDark.png')
 
 const Stack = createNativeStackNavigator();
 
@@ -46,11 +48,11 @@ const Chatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
-//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
+//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
   useEffect(() => {
     messageEndRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
@@ -109,23 +111,33 @@ const Chatbot = ({navigation, route}) => {
   return (
     <NativeBaseProvider theme={getTheme(themeMode)}>
       <Box flex={1} bg={themeMode === 'dark' ? "blueGray.900" : "blueGray.50"} p="4">
-        <HStack justifyContent="flex-end" mb={4}>
-           <IconButton
+      <HStack justifyContent="flex-end" mb={4}>
+        <IconButton
             icon={<Image source={themeMode === 'dark' ? sunIcon : moonIcon} style={{ width: 24, height: 24 }} alt="Theme Toggle" />}
             onPress={toggleTheme}
             key={themeMode}
-          />
+        />
         <IconButton
-                icon={<Icon as={MaterialIcons} name="account-circle" size="xl" />}
-                onPress={() => navigation.navigate('Perfil', { email: userEmail })}
-                _icon={{
-                    color: themeMode === 'dark' ? 'blueGray.50' : 'blueGray.900',  // Altere esta linha
-                    size: "lg"
-                }}
-            />
+            icon={<Icon as={MaterialIcons} name="account-circle" size="xl" />}
+            onPress={() => navigation.navigate('Perfil', { email: userEmail })}
+            _icon={{
+                color: themeMode === 'dark' ? 'blueGray.50' : 'blueGray.900',
+                size: "lg"
+            }}
+        />
+    </HStack>
+    <Center mt={-28} bg={themeMode === 'dark' ? "blueGray.800" : "blueGray.50"}>
+    <Image 
+    source={themeMode === 'dark' ? robotIconDark : robotIcon} 
+    alt="Robot" 
+    style={{ width: 180, height: 180 }} 
+    resizeMode="contain"  
+/>
+    <Text mt={-35} fontWeight={"bold"} fontSize={20} color={themeMode === 'dark' ? "blueGray.50" : "blueGray.900"}>Olá eu sou o EXPI</Text>
+</Center>
 
           
-        </HStack>
+     
         <ScrollView
           ref={messageEndRef}
           flex={1}

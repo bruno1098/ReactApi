@@ -71,7 +71,7 @@ const Inicial = ({ navigation }) => {
       <TouchableOpacity onPress={toggleTheme} style={styles.themeToggleIcon}>
         <Image source={theme === 'dark' ? sunIcon : moonIcon} style={{ width: 24, height: 24 }} />
       </TouchableOpacity>
-      <Image source={require('../assets/expi.png')} style={styles.image} />
+      <Image source={require('../assets/expo.png')} style={styles.image} />
       <Text style={[styles.text, { color: theme === 'dark' ? '#fff' : '#000' }]}>
         Olá, Sou o Expi posso ajudar na eficiência da sua IA?
       </Text>
