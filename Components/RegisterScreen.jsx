@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  NativeBaseProvider, Box, VStack, Input, IconButton, Button, Image, Center, Select, CheckIcon, useToast } from 'native-base';
+import { NativeBaseProvider, Box, VStack, Input, IconButton, Button, Image, Center, Select, CheckIcon, useToast } from 'native-base';
 import { useTheme } from './ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -13,10 +13,8 @@ const RegisterScreen = ({ navigation }) => {
   const [registerStatus, setRegisterStatus] = useState('default');
   const toast = useToast();
   const moonIcon = require('../assets/moon.png');
-const sunIcon = require('../assets/sun.png');
-const avatarIcon = require('../assets/avatar.png');
-
-
+  const sunIcon = require('../assets/sun.png');
+  const avatarIcon = require('../assets/avatar.png');
 
   const validateEmail = (email) => {
     return email.match(/\S+@\S+\.\S+/);
@@ -24,28 +22,6 @@ const avatarIcon = require('../assets/avatar.png');
 
   const isEmpty = (value) => {
     return value.trim() === '';
-  };
-
-  const formatDocument = (doc) => {
-    const cleaned = doc.replace(/\D/g, ''); // Remove non-numeric characters
-    if (documentType === 'CPF') {
-      if (cleaned.length > 11) return cnpjOrCpf; // Prevent further input if length is exceeded
-      return cleaned
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-    } else { // CNPJ case
-      if (cleaned.length > 14) return cnpjOrCpf; // Prevent further input if length is exceeded
-      return cleaned
-        .replace(/^(\d{2})(\d)/, '$1.$2')
-        .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-        .replace(/\.(\d{3})(\d)/, '.$1/$2')
-        .replace(/(\d{4})(\d)/, '$1-$2');
-    }
-  };
-
-  const handleDocumentChange = (doc) => {
-    setCnpjOrCpf(formatDocument(doc));
   };
 
   const handleRegister = async () => {
@@ -85,19 +61,11 @@ const avatarIcon = require('../assets/avatar.png');
       setTimeout(() => setRegisterStatus('default'), 2000);
     }
   };
+
   return (
     <NativeBaseProvider>
       <Box flex={1} bg={theme === 'dark' ? '#333' : '#fff'} p="5" alignItems="center" justifyContent="center">
       <IconButton
-                    icon={<Image source={theme === 'dark' ? sunIcon : moonIcon} alt="Theme Toggle Icon" style={{ width: 24, height: 24 }} />}
-                    onPress={toggleTheme}
-                    key={theme}
-                    position="absolute"
-                    top="4"
-                    right="3"
-                    zIndex="1"
-                />
-                <IconButton
                     icon={<MaterialIcons name="arrow-back" size={24} color={theme === 'dark' ? 'white' : 'black'} />}
                     onPress={() => navigation.goBack()}
                     position="absolute"
@@ -105,10 +73,17 @@ const avatarIcon = require('../assets/avatar.png');
                     left="3"
                     zIndex="1"
                 />
-        <Box w="80%" maxW="300px" bg={theme === 'dark' ? 'blueGray.700' : 'gray.400'}
-             p="4" borderRadius="lg" shadow="3">
+        <IconButton
+          icon={<MaterialIcons name="arrow-back" size={24} color={theme === 'dark' ? 'white' : 'black'} />}
+          onPress={() => navigation.goBack()}
+          position="absolute"
+          top="4"
+          left="3"
+          zIndex="1"
+        />
+        <Box w="80%" maxW="300px" bg={theme === 'dark' ? 'blueGray.700' : 'gray.400'} p="4" borderRadius="lg" shadow="3">
           <Center mb="4">
-            <Image source={require('../assets/avatar.png')} alt="User Icon" size="xl" style={{ width: 56, height: 56, marginBottom: 16 }} />
+          <Image source={require('../assets/avatar.png')} alt="User Icon" size="xl" style={{ width: 56, height: 56, marginBottom: 16 }} />
           </Center>
           <VStack space={4}>
             <Input
@@ -139,7 +114,7 @@ const avatarIcon = require('../assets/avatar.png');
             <Input
               placeholder={documentType === 'CPF' ? "CPF (xxx.xxx.xxx-xx)" : "CNPJ (xx.xxx.xxx/xxxx-xx)"}
               value={cnpjOrCpf}
-              onChangeText={handleDocumentChange}
+              onChangeText={setCnpjOrCpf}
               variant="filled"
               bg={theme === 'dark' ? 'blueGray.600' : 'coolGray.100'}
               borderColor="transparent"
@@ -149,6 +124,7 @@ const avatarIcon = require('../assets/avatar.png');
             />
             <Input
               placeholder="Email"
+              value={email}
               onChangeText={setEmail}
               variant="filled"
               bg={theme === 'dark' ? 'blueGray.600' : 'coolGray.100'}
@@ -160,6 +136,7 @@ const avatarIcon = require('../assets/avatar.png');
             <Input
               placeholder="Senha"
               type="password"
+              value={password}
               onChangeText={setPassword}
               variant="filled"
               bg={theme === 'dark' ? 'blueGray.600' : 'coolGray.100'}
