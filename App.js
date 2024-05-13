@@ -7,6 +7,7 @@ import LoginScreen from './Components/LoginScreen';
 import RegisterScreen from './Components/RegisterScreen';
 import Perfil from './Components/Perfil';
 import Inicial from './Components/Inicial';
+import EsqueciSenha from './Components/EsqueciSenha';
 import { ThemeProvider } from './Components/ThemeContext';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ const App = () => {
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Chatbot" component={Chatbot} />
           <Stack.Screen name="Perfil" component={Perfil} />
+          <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

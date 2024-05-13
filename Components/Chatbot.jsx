@@ -46,11 +46,11 @@ const Chatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
-//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
+//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
   useEffect(() => {
     messageEndRef.current?.scrollToEnd({ animated: true });
   }, [messages]);

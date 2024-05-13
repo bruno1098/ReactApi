@@ -1,13 +1,48 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useTheme } from './ThemeContext';  // Garanta que o caminho para ThemeContext esteja correto
-
-const moonIcon = require('../assets/moon.png');
-const sunIcon = require('../assets/sun.png');
+import React, { useState, useEffect } from 'react';
+import { NativeBaseProvider, Box, VStack, Text, Input, IconButton, Icon, Button, useToast } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext';
 
 const Perfil = ({ navigation, route }) => {
-    const { theme, toggleTheme } = useTheme();
-    const email = route.params?.email || 'E-mail não fornecido';
+    const { theme } = useTheme();
+    const userEmail = route.params?.email;
+    const [userData, setUserData] = useState(null);
+    const [visibleDocument, setVisibleDocument] = useState(false);
+    const toast = useToast();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://fiap-6a182-default-rtdb.firebaseio.com/users.json`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (!response.ok) throw new Error('Falha ao buscar usuários');
+
+                const users = await response.json();
+                console.log("Users fetched: ", users);
+
+                // Procurar pelo usuário baseado no email diretamente no objeto, sem buscar por chaves
+                for (let key in users) {
+                    if (users[key].email === userEmail) {
+                        console.log("User data set: ", users[key]); // Log para verificar os dados encontrados
+                        setUserData(users[key]);
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.error("Erro ao buscar dados do usuário:", error);
+                toast.show({
+                    description: 'Erro de Conexão: ' + error.message,
+                    status: "error"
+                });
+            }
+        };
+
+        fetchData();
+    }, [userEmail]);
 
     const handleLogoff = () => {
         navigation.reset({
@@ -17,40 +52,39 @@ const Perfil = ({ navigation, route }) => {
     };
 
     return (
-        <View style={[styles.container, { backgroundColor: theme === 'dark' ? '#333' : '#fff' }]}>
-            <TouchableOpacity onPress={toggleTheme} style={styles.themeToggleIcon}>
-                <Image source={theme === 'dark' ? sunIcon : moonIcon} style={{ width: 24, height: 24 }} />
-            </TouchableOpacity>
-            <Text style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Email: {email}</Text>
-            
-            <TouchableOpacity style={[styles.button, { backgroundColor: theme === 'dark' ? '#666' : '#007bff' }]} onPress={handleLogoff}>
-                <Text style={styles.buttonText}>Logoff</Text>
-            </TouchableOpacity>
-        </View>
+        <NativeBaseProvider>
+            <Box flex={1} bg={theme === 'dark' ? '#333' : '#fff'} p="5" alignItems="center" justifyContent="center">
+                <VStack space={4} alignItems="center">
+                    <Text fontSize="xl" bold color={theme === 'dark' ? 'white' : 'black'}>
+                        Perfil do Usuário
+                    </Text>
+                    <Text fontSize="md" color={theme === 'dark' ? 'light.300' : 'dark.600'}>
+                        Email: {userData ? userData.email : 'Carregando...'}
+                    </Text>
+                    <Text fontSize="md" color={theme === 'dark' ? 'light.300' : 'dark.600'}>
+                        Nome da Empresa: {userData ? userData.companyName : 'Carregando...'}
+                    </Text>
+                    <Text fontSize="md" color={theme === 'dark' ? 'light.300' : 'dark.600'}>
+                        CNPJ/CPF: {visibleDocument ? (userData ? userData.cnpjOrCpf : 'Carregando...') : '**********'}
+                    </Text>
+                    <IconButton
+                        icon={<Icon as={MaterialIcons} name={visibleDocument ? 'visibility' : 'visibility-off'} />}
+                        onPress={() => setVisibleDocument(!visibleDocument)}
+                    />
+                    <Text
+                            fontSize="sm"
+                            mt="2"
+                            color="coolGray.600"
+                            onPress={() => navigation.navigate('EsqueciSenha')}>
+                            Alterar Senha
+                        </Text>
+                    <Button mt="5" colorScheme="red" onPress={handleLogoff}>
+                        Logoff
+                    </Button>
+                </VStack>
+            </Box>
+        </ NativeBaseProvider>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    button: {
-        marginTop: 20,
-        padding: 10,
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-    },
-    themeToggleIcon: {
-        position: 'absolute',
-        top: 40,
-        right: 20,
-    },
-});
 
 export default Perfil;

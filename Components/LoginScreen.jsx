@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NativeBaseProvider, Box, VStack, Input, Button, IconButton, Image, Center, useToast } from 'native-base';
+import { NativeBaseProvider, Box, VStack, Input, Button, IconButton, Image, Center, Text, useToast } from 'native-base';
 import { useTheme } from './ThemeContext';
 
 const moonIcon = require('../assets/moon.png');
@@ -102,7 +102,13 @@ const LoginScreen = ({ navigation }) => {
                             }}>
                             {loginStatus === 'success' ? '✔' : loginStatus === 'error' ? '✘' : 'Log In'}
                         </Button>
-
+                        <Text
+                            fontSize="sm"
+                            mt="2"
+                            color="coolGray.600"
+                            onPress={() => navigation.navigate('EsqueciSenha')}>
+                            Esqueci minha senha
+                        </Text>
                         <Button variant="ghost" onPress={() => navigation.navigate('Register')}>Sign Up</Button>
                     </VStack>
                 </Box>
