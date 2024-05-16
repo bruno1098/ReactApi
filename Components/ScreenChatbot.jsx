@@ -48,7 +48,7 @@ const ScreenChatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
