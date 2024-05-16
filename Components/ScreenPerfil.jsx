@@ -9,7 +9,7 @@ const sunIcon = require('../assets/sun.png');
 const avatarIcon = require('../assets/avatar.png');
 
 
-const Perfil = ({ navigation, route }) => {
+const ScreenPerfil = ({ navigation, route }) => {
     const { theme, toggleTheme } = useTheme();
     const userEmail = route.params?.email;
     const [userData, setUserData] = useState(null);
@@ -19,7 +19,7 @@ const Perfil = ({ navigation, route }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://fiap-6a182-default-rtdb.firebaseio.com/users.json`, {
+                const response = await fetch(`https://experienceia-default-rtdb.firebaseio.com/Usuarios.json`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -30,10 +30,10 @@ const Perfil = ({ navigation, route }) => {
                 const users = await response.json();
                 console.log("Users fetched: ", users);
 
-                // Procurar pelo usuário baseado no email diretamente no objeto, sem buscar por chaves
+             
                 for (let key in users) {
                     if (users[key].email === userEmail) {
-                        console.log("User data set: ", users[key]); // Log para verificar os dados encontrados
+                        console.log("User data set: ", users[key]); 
                         setUserData(users[key]);
                         break;
                     }
@@ -110,4 +110,4 @@ const Perfil = ({ navigation, route }) => {
     );
 };
 
-export default Perfil;
+export default ScreenPerfil;

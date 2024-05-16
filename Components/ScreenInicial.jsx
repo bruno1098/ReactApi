@@ -6,7 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 const moonIcon = require('../assets/moon.png');
 const sunIcon = require('../assets/sun.png');
 
-const Inicial = ({ navigation }) => {
+const ScreenInicial = ({ navigation }) => {
   const { theme, toggleTheme } = useTheme();
   const [buttonPressed, setButtonPressed] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
@@ -124,9 +124,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#fff', // Ensuring text is white for visibility
+    color: '#fff',
     fontSize: 16,
   },
 });
 
-export default Inicial;
+export default ScreenInicial;

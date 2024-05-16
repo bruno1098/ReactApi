@@ -3,17 +3,17 @@ import { NativeBaseProvider, Box, VStack, Input, Button, Center, Text, IconButto
 import { useTheme } from './ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const ForgotPasswordScreen = ({ navigation }) => {
+const ScreenEsqueciSenha = ({ navigation }) => {
     const { theme } = useTheme();
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [updateStatus, setUpdateStatus] = useState('default'); // Adiciona o estado para controlar o status
+    const [updateStatus, setUpdateStatus] = useState('default');
     const toast = useToast();
 
     const updatePassword = async () => {
         setUpdateStatus('loading');
         try {
-            const response = await fetch(`https://fiap-6a182-default-rtdb.firebaseio.com/users.json`, {
+            const response = await fetch(`https://experienceia-default-rtdb.firebaseio.com/Usuarios.json`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -122,4 +122,4 @@ const ForgotPasswordScreen = ({ navigation }) => {
     );
 };
 
-export default ForgotPasswordScreen;
+export default ScreenEsqueciSenha;

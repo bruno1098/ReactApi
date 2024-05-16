@@ -37,7 +37,7 @@ const getTheme = (mode) => extendTheme({
   }
 });
 
-const Chatbot = ({navigation, route}) => {
+const ScreenChatbot = ({navigation, route}) => {
   const [themeMode, setThemeMode] = useState('dark');
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
@@ -48,7 +48,7 @@ const Chatbot = ({navigation, route}) => {
   const client = axios.create({
     baseURL: "https://api.openai.com/v1",
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'Content-Type': 'application/json',
     },
   });
@@ -210,4 +210,4 @@ const Chatbot = ({navigation, route}) => {
   );
 };
 
-export default Chatbot;
+export default ScreenChatbot;

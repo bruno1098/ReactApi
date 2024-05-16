@@ -8,12 +8,12 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (email) => {
-    // Simula um login
+    
     setUser({ email });
   };
 
   const logout = () => {
-    // Simula um logout
+    
     setUser(null);
   };
 

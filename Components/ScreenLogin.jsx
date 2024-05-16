@@ -8,7 +8,7 @@ const moonIcon = require('../assets/moon.png');
 const sunIcon = require('../assets/sun.png');
 const avatarIcon = require('../assets/avatar.png');
 
-const LoginScreen = ({ navigation }) => {
+const ScreenLogin = ({ navigation }) => {
     const { theme, toggleTheme } = useTheme();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
     const handleLogin = async () => {
         setLoginStatus('default');
         try {
-            const response = await fetch(`https://fiap-6a182-default-rtdb.firebaseio.com/users.json`, {
+            const response = await fetch(`https://experienceia-default-rtdb.firebaseio.com/Usuarios.json`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,4 +128,4 @@ const LoginScreen = ({ navigation }) => {
     );
 };
 
-export default LoginScreen;
+export default ScreenLogin;
